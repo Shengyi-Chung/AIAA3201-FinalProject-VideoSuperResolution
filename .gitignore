@@ -1,0 +1,6 @@
+datasets/
+*.pth
+*.weights
+videos.zip
+__pycache__/
+.venv/
