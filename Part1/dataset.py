@@ -35,7 +35,11 @@ def _sorted_pngs(folder: Path) -> List[Path]:
     return sorted(folder.glob("*.png"))
 
 
-def build_frame_pairs(hr_root: str | Path, lr_bicubic_root: str | Path) -> List[Tuple[Path, Path]]:
+def build_frame_pairs(
+    hr_root: str | Path,
+    lr_bicubic_root: str | Path,
+    max_pairs: int | None = None,
+) -> List[Tuple[Path, Path]]:
     """Build aligned (lr_bicubic_up, hr) pairs by sequence folder + frame name."""
     hr_root = Path(hr_root)
     lr_root = Path(lr_bicubic_root)
@@ -54,6 +58,8 @@ def build_frame_pairs(hr_root: str | Path, lr_bicubic_root: str | Path) -> List[
             lr = lr_map.get(hr.name)
             if lr is not None:
                 pairs.append((lr, hr))
+                if max_pairs is not None and len(pairs) >= max_pairs:
+                    return pairs
 
     if not pairs:
         raise RuntimeError(
@@ -78,6 +84,15 @@ def load_y_channel(path: str | Path) -> np.ndarray:
     return bgr_to_y_float01(load_bgr(path))
 
 
+def align_lr_to_hr(lr_y: np.ndarray, hr_y: np.ndarray) -> np.ndarray:
+    """Upsample LR Y channel to HR size when shapes do not match."""
+    if lr_y.shape == hr_y.shape:
+        return lr_y
+
+    hr_h, hr_w = hr_y.shape
+    return cv2.resize(lr_y, (hr_w, hr_h), interpolation=cv2.INTER_CUBIC)
+
+
 class SRCNNPatchDataset(Dataset):
     """Patch-level dataset on Y channel for SRCNN baseline training."""
 
@@ -86,16 +101,18 @@ class SRCNNPatchDataset(Dataset):
         pairs: Sequence[Tuple[Path, Path]],
         patch_size: int = 33,
         stride: int = 14,
+        max_patches: int | None = None,
     ) -> None:
         self.patch_size = patch_size
+        self.cache: dict[Tuple[Path, Path], Tuple[np.ndarray, np.ndarray]] = {}
         self.samples: List[Tuple[Path, Path, int, int]] = []
 
         for lr_path, hr_path in pairs:
             y_lr = load_y_channel(lr_path)
             y_hr = load_y_channel(hr_path)
 
-            if y_lr.shape != y_hr.shape:
-                continue
+            y_lr = align_lr_to_hr(y_lr, y_hr)
+            self.cache[(lr_path, hr_path)] = (y_lr, y_hr)
 
             h, w = y_lr.shape
             if h < patch_size or w < patch_size:
@@ -104,6 +121,13 @@ class SRCNNPatchDataset(Dataset):
             for top in range(0, h - patch_size + 1, stride):
                 for left in range(0, w - patch_size + 1, stride):
                     self.samples.append((lr_path, hr_path, top, left))
+                    if max_patches is not None and len(self.samples) >= max_patches:
+                        break
+                if max_patches is not None and len(self.samples) >= max_patches:
+                    break
+
+            if max_patches is not None and len(self.samples) >= max_patches:
+                break
 
         if not self.samples:
             raise RuntimeError("No patches generated. Check patch_size/stride and paths.")
@@ -113,8 +137,7 @@ class SRCNNPatchDataset(Dataset):
 
     def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
         lr_path, hr_path, top, left = self.samples[idx]
-        y_lr = load_y_channel(lr_path)
-        y_hr = load_y_channel(hr_path)
+        y_lr, y_hr = self.cache[(lr_path, hr_path)]
 
         lr_patch = y_lr[top : top + self.patch_size, left : left + self.patch_size]
         hr_patch = y_hr[top : top + self.patch_size, left : left + self.patch_size]

@@ -80,6 +80,11 @@ def eval_input_bicubic(pairs: Iterable[tuple[Path, Path]]) -> tuple[float, float
     for lr_up, hr in pairs:
         pred = load_y_channel(lr_up)
         gt = load_y_channel(hr)
+
+        if pred.shape != gt.shape:
+            gt_h, gt_w = gt.shape
+            pred = cv2.resize(pred, (gt_w, gt_h), interpolation=cv2.INTER_CUBIC)
+
         psnr_list.append(psnr_y(pred, gt))
         ssim_list.append(ssim_y(pred, gt))
         count += 1
@@ -104,6 +109,10 @@ def eval_srcnn_pairs(
             inp = load_y_channel(lr_up)
             gt = load_y_channel(hr)
 
+            if inp.shape != gt.shape:
+                gt_h, gt_w = gt.shape
+                inp = cv2.resize(inp, (gt_w, gt_h), interpolation=cv2.INTER_CUBIC)
+
             x = torch.from_numpy(inp).unsqueeze(0).unsqueeze(0).to(device)
             pred = model(x).squeeze(0).squeeze(0).cpu().numpy()
             pred = np.clip(pred, 0.0, 1.0)
@@ -121,15 +130,16 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Evaluate Part1 baselines")
     parser.add_argument("--project1-root", type=Path, default=Path("/home/schung760/shared_data/project1"))
     parser.add_argument("--split", type=str, choices=["train", "val"], default="val")
+    parser.add_argument("--max-pairs", type=int, default=None)
     parser.add_argument(
         "--srcnn-ckpt",
         type=Path,
-        default=Path("/home/schung760/AIAA3201-FinalProject-VideoSuperResolution/Part1/checkpoints/srcnn_best.pt"),
+        default=Path("/home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/checkpoints/srcnn_best.pt"),
     )
     parser.add_argument(
         "--csv-out",
         type=Path,
-        default=Path("/home/schung760/AIAA3201-FinalProject-VideoSuperResolution/Part1/results_part1.csv"),
+        default=Path("/home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/results_part1.csv"),
     )
     return parser.parse_args()
 
@@ -137,7 +147,12 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     split_paths = default_split_paths(args.project1_root)[args.split]
-    pairs = build_frame_pairs(split_paths.hr_root, split_paths.lr_bicubic_root)
+    pairs = build_frame_pairs(
+        split_paths.hr_root,
+        split_paths.lr_bicubic_root,
+        max_pairs=args.max_pairs,
+    )
+    print(f"eval_pairs={len(pairs)}")
 
     rows: list[tuple[str, float, float, float]] = []
 

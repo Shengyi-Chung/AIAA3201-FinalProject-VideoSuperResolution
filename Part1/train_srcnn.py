@@ -41,10 +41,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--patch-size", type=int, default=33)
     parser.add_argument("--stride", type=int, default=14)
     parser.add_argument("--num-workers", type=int, default=4)
+    parser.add_argument("--max-train-pairs", type=int, default=None)
+    parser.add_argument("--max-val-pairs", type=int, default=None)
+    parser.add_argument("--max-train-patches", type=int, default=None)
+    parser.add_argument("--max-val-patches", type=int, default=None)
     parser.add_argument(
         "--save-dir",
         type=Path,
-        default=Path("/home/schung760/AIAA3201-FinalProject-VideoSuperResolution/Part1/checkpoints"),
+        default=Path("/home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/checkpoints"),
     )
     return parser.parse_args()
 
@@ -82,11 +86,33 @@ def main() -> None:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     split_paths = default_split_paths(args.project1_root)
-    train_pairs = build_frame_pairs(split_paths["train"].hr_root, split_paths["train"].lr_bicubic_root)
-    val_pairs = build_frame_pairs(split_paths["val"].hr_root, split_paths["val"].lr_bicubic_root)
+    train_pairs = build_frame_pairs(
+        split_paths["train"].hr_root,
+        split_paths["train"].lr_bicubic_root,
+        max_pairs=args.max_train_pairs,
+    )
+    val_pairs = build_frame_pairs(
+        split_paths["val"].hr_root,
+        split_paths["val"].lr_bicubic_root,
+        max_pairs=args.max_val_pairs,
+    )
 
-    train_set = SRCNNPatchDataset(train_pairs, patch_size=args.patch_size, stride=args.stride)
-    val_set = SRCNNPatchDataset(val_pairs, patch_size=args.patch_size, stride=args.stride)
+    print(f"train_pairs={len(train_pairs)} val_pairs={len(val_pairs)}")
+
+    train_set = SRCNNPatchDataset(
+        train_pairs,
+        patch_size=args.patch_size,
+        stride=args.stride,
+        max_patches=args.max_train_patches,
+    )
+    val_set = SRCNNPatchDataset(
+        val_pairs,
+        patch_size=args.patch_size,
+        stride=args.stride,
+        max_patches=args.max_val_patches,
+    )
+
+    print(f"train_patches={len(train_set)} val_patches={len(val_set)}")
 
     train_loader = DataLoader(
         train_set,

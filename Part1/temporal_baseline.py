@@ -55,13 +55,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--csv-out",
         type=Path,
-        default=Path("/home/schung760/AIAA3201-FinalProject-VideoSuperResolution/Part1/temporal_metrics.csv"),
+        default=Path("/home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/temporal_metrics.csv"),
     )
     parser.add_argument("--save-preview", action="store_true")
     parser.add_argument(
         "--preview-dir",
         type=Path,
-        default=Path("/home/schung760/AIAA3201-FinalProject-VideoSuperResolution/Part1/temporal_preview"),
+        default=Path("/home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/temporal_preview"),
     )
     return parser.parse_args()
 

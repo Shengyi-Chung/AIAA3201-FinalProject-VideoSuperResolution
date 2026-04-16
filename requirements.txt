@@ -1,0 +1,8 @@
+numpy
+opencv-python-headless
+scikit-image
+matplotlib
+tqdm
+torch
+torchvision
+torchaudio
