@@ -100,10 +100,15 @@ class SRCNNPatchDataset(Dataset):
         self,
         pairs: Sequence[Tuple[Path, Path]],
         patch_size: int = 33,
+        label_size: int = 21,
         stride: int = 14,
         max_patches: int | None = None,
     ) -> None:
         self.patch_size = patch_size
+        self.label_size = label_size
+        if label_size > patch_size:
+            raise ValueError("label_size must be <= patch_size")
+        self.label_offset = (patch_size - label_size) // 2
         self.cache: dict[Tuple[Path, Path], Tuple[np.ndarray, np.ndarray]] = {}
         self.samples: List[Tuple[Path, Path, int, int]] = []
 
@@ -140,6 +145,9 @@ class SRCNNPatchDataset(Dataset):
         y_lr, y_hr = self.cache[(lr_path, hr_path)]
 
         lr_patch = y_lr[top : top + self.patch_size, left : left + self.patch_size]
-        hr_patch = y_hr[top : top + self.patch_size, left : left + self.patch_size]
+        hr_patch = y_hr[
+            top + self.label_offset : top + self.label_offset + self.label_size,
+            left + self.label_offset : left + self.label_offset + self.label_size,
+        ]
 
         return torch.from_numpy(lr_patch).unsqueeze(0), torch.from_numpy(hr_patch).unsqueeze(0)

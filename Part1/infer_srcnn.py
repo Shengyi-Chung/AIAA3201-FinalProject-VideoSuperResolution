@@ -34,6 +34,14 @@ def y_to_bgr(y: np.ndarray) -> np.ndarray:
     return cv2.cvtColor(y_u8, cv2.COLOR_GRAY2BGR)
 
 
+def center_crop(img: np.ndarray, target_shape: tuple[int, int]) -> np.ndarray:
+    target_h, target_w = target_shape
+    img_h, img_w = img.shape[:2]
+    top = (img_h - target_h) // 2
+    left = (img_w - target_w) // 2
+    return img[top : top + target_h, left : left + target_w]
+
+
 def main() -> None:
     args = parse_args()
 
@@ -67,6 +75,12 @@ def main() -> None:
             x = torch.from_numpy(inp_y).unsqueeze(0).unsqueeze(0).to(device)
             pred_y = model(x).squeeze(0).squeeze(0).cpu().numpy()
             pred_y = np.clip(pred_y, 0.0, 1.0)
+
+            if pred_y.shape != gt_y.shape:
+                gt_y = center_crop(gt_y, pred_y.shape)
+
+            if inp_y.shape != pred_y.shape:
+                inp_y = center_crop(inp_y, pred_y.shape)
 
             inp_img = y_to_bgr(inp_y)
             pred_img = y_to_bgr(pred_y)

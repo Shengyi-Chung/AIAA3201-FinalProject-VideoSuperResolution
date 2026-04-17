@@ -117,6 +117,13 @@ def eval_srcnn_pairs(
             pred = model(x).squeeze(0).squeeze(0).cpu().numpy()
             pred = np.clip(pred, 0.0, 1.0)
 
+            if pred.shape != gt.shape:
+                pred_h, pred_w = pred.shape
+                gt_h, gt_w = gt.shape
+                top = (gt_h - pred_h) // 2
+                left = (gt_w - pred_w) // 2
+                gt = gt[top : top + pred_h, left : left + pred_w]
+
             psnr_list.append(psnr_y(pred, gt))
             ssim_list.append(ssim_y(pred, gt))
             count += 1

@@ -27,8 +27,9 @@ python train_srcnn.py \
   --epochs 1 \
   --batch-size 8 \
   --num-workers 0 \
-  --patch-size 16 \
-  --stride 16 \
+  --patch-size 33 \
+  --label-size 21 \
+  --stride 14 \
   --max-train-pairs 200 \
   --max-val-pairs 80 \
   --max-train-patches 4000 \
@@ -61,6 +62,23 @@ python temporal_baseline.py \
 - `checkpoints/srcnn_best.pt`
 - `results_part1.csv`
 - `temporal_metrics.csv`
+
+## One-Command Report Workflow
+
+Run the full report-oriented pipeline with one command:
+
+```bash
+bash /home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part1/run_part1_report.sh
+```
+
+This will generate:
+
+- `checkpoints_report/srcnn_best.pt`
+- `results_part1_report.csv`
+- `temporal_metrics_report.csv`
+- `outputs_srcnn_report/` (input/srcnn/gt/panel images)
+- `temporal_preview_report/` (temporal preview images)
+- `report_summary.md` (ready-to-use markdown summary)
 
 ## Notes
 

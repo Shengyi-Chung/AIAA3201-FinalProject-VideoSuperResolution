@@ -16,11 +16,11 @@ class SRCNN(nn.Module):
     def __init__(self) -> None:
         super().__init__()
         self.net = nn.Sequential(
-            nn.Conv2d(1, 64, kernel_size=9, padding=4),
+            nn.Conv2d(1, 64, kernel_size=9, padding=0),
             nn.ReLU(inplace=True),
             nn.Conv2d(64, 32, kernel_size=1, padding=0),
             nn.ReLU(inplace=True),
-            nn.Conv2d(32, 1, kernel_size=5, padding=2),
+            nn.Conv2d(32, 1, kernel_size=5, padding=0),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -39,6 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--lr", type=float, default=1e-4)
     parser.add_argument("--patch-size", type=int, default=33)
+    parser.add_argument("--label-size", type=int, default=21)
     parser.add_argument("--stride", type=int, default=14)
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--max-train-pairs", type=int, default=None)
@@ -102,12 +103,14 @@ def main() -> None:
     train_set = SRCNNPatchDataset(
         train_pairs,
         patch_size=args.patch_size,
+        label_size=args.label_size,
         stride=args.stride,
         max_patches=args.max_train_patches,
     )
     val_set = SRCNNPatchDataset(
         val_pairs,
         patch_size=args.patch_size,
+        label_size=args.label_size,
         stride=args.stride,
         max_patches=args.max_val_patches,
     )
