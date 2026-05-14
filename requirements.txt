@@ -6,3 +6,8 @@ tqdm
 torch
 torchvision
 torchaudio
+Pillow
+diffusers
+transformers
+accelerate
+safetensors
