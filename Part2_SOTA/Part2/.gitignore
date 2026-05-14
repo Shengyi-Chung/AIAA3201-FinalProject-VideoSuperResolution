@@ -1,7 +1,7 @@
-# Model weights and checkpoints
-*.pth
-*.pt
-weights/
+# Model weights and checkpoints (tracked with Git LFS)
+# *.pth  - Tracked with Git LFS
+# *.pt   - Tracked with Git LFS
+# weights/ - Tracked with Git LFS
 checkpoints/
 
 # Dataset and results
