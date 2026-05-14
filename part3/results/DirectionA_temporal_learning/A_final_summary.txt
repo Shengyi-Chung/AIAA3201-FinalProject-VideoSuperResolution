@@ -1,0 +1,14 @@
+Direction A Final Summary: From Post-hoc Boundary Analysis to Train-time Temporal Fine-tuning
+
+Direction A initially investigated whether FUGR-C could be further improved by post-hoc temporal refinement. We tested temporal smoothing, residual stabilization, temporal-risk gating, residual scaling, robust residual variants, oracle selection, no-reference adaptive policies, learned no-reference selectors, and calibrated residual ensembles. These methods consistently showed that the remaining post-hoc refinement headroom after FUGR-C is extremely small.
+
+This negative result was then converted into a boundary-analysis finding: FUGR-C is already close to the best temporal-fidelity trade-off achievable by simple post-hoc refinement.
+
+To move beyond this limitation, we introduced A11, a lightweight train-time temporal refiner. The model takes neighboring FUGR-C frames and the current BasicVSR frame as input, then predicts a small residual correction on top of FUGR-C. It is trained with reconstruction loss, temporal-difference loss, and correction regularization.
+
+A11 changes the conclusion of Direction A. While post-hoc refinement is saturated, train-time temporal learning can still exploit useful temporal information. Across temporal-weight sweeps, larger temporal weights consistently improve PSNR and SSIM, while TDE remains lower than FUGR-C. The best fidelity model is temporal_weight = 7.0, which improves PSNR by about +0.0147 dB and SSIM by about +0.000688 over FUGR-C while also reducing TDE. The best temporal-consistency model is temporal_weight = 1.5, which gives the largest TDE reduction.
+
+Seed stability further confirms that the A11 improvement is not accidental. Across three additional seeds for temporal_weight = 7.0, all runs improve PSNR, SSIM, and TDE over FUGR-C. The mean gains are approximately +0.0141 dB PSNR, +0.000624 SSIM, and -3.53e-6 TDE.
+
+Final conclusion:
+Direction A shows that temporal information is useful, but it cannot be reliably exploited by simple post-hoc rules after FUGR-C. Instead, temporal consistency must be introduced as a train-time learning objective. A11 therefore becomes the final positive result of Direction A: train-time temporal fine-tuning breaks the limitation observed in post-hoc temporal refinement.

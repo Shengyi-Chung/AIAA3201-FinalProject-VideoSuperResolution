@@ -1,0 +1,13 @@
+Direction A9: Learned No-reference Frame-level Selector
+
+FUGR-C test reference:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best non-oracle deployable policy:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Test per-frame oracle:
+{'policy': 'TestPerFrameOracle', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.5743039230063, 'ssim': 0.8276624709367753, 'sharpness': 0.0010746269021183253, 'tde': 0.03068927153944969, 'delta_psnr_vs_fugr': 0.0012356102162982552, 'delta_tde_vs_fugr': 2.344511449335618e-06}
+
+Interpretation:
+A9 trains a small ridge-regression selector on calibration frames to predict which non-FUGR candidate may improve PSNR over FUGR-C using only no-reference features. If the learned selector cannot beat FUGR-C on held-out test sequences, then the remaining Direction-A headroom is not only small but also hard to exploit even with a supervised calibration stage.

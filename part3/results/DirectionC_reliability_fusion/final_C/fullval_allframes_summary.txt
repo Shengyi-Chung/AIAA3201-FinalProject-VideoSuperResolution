@@ -1,0 +1,16 @@
+Full-validation FUGR-VSR evaluation
+num_sequences: 30
+frame_mode: all
+max_alpha: 0.25
+tau_dis: 0.08
+tau_temp: 0.04
+hp_sigma: 1.6
+detail_strength: 1.2
+total_time_sec: 5721.76
+
+method,psnr,ssim,laplacian_sharpness,tde,motion,num_sequences
+FUGR-no-temporal,28.033938,0.782783,0.00145157,0.03523436,0.08730252,30
+FUGR-temporal,28.029534,0.782749,0.00144142,0.03525154,0.08730252,30
+RGB-Hybrid,28.027344,0.782661,0.00143879,0.03525459,0.08730252,30
+BasicVSR,28.022529,0.782632,0.00144484,0.03527832,0.08730252,30
+VSRGAN,24.669061,0.704343,0.00614696,0.04482792,0.08730252,30

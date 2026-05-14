@@ -1,0 +1,31 @@
+nohup: ignoring input
+Device: cuda NVIDIA RTX A6000
+Loaded sequences: ['000', '003', '006', '010', '011', '018', '020', '026', '028', '029']
+
+===== Training temporal_weight=7.0000 =====
+[tw=7.0000] step 1/1000 loss=0.322526 rec=0.026980 temp=0.042221 reg=0.000000
+[tw=7.0000] step 100/1000 loss=0.255830 rec=0.020788 temp=0.033576 reg=0.000201
+[tw=7.0000] step 200/1000 loss=0.201355 rec=0.016445 temp=0.026413 reg=0.000317
+[tw=7.0000] step 300/1000 loss=0.392880 rec=0.033273 temp=0.051368 reg=0.000574
+[tw=7.0000] step 400/1000 loss=0.229585 rec=0.018911 temp=0.030090 reg=0.000926
+[tw=7.0000] step 500/1000 loss=0.248022 rec=0.019975 temp=0.032571 reg=0.001046
+[tw=7.0000] step 600/1000 loss=0.313123 rec=0.027078 temp=0.040858 reg=0.000798
+[tw=7.0000] step 700/1000 loss=0.339255 rec=0.028517 temp=0.044383 reg=0.001097
+[tw=7.0000] step 800/1000 loss=0.177494 rec=0.014719 temp=0.023247 reg=0.000969
+[tw=7.0000] step 900/1000 loss=0.358323 rec=0.030550 temp=0.046817 reg=0.001002
+[tw=7.0000] step 1000/1000 loss=0.222645 rec=0.018297 temp=0.029185 reg=0.001017
+Direction A11: Train-time Temporal Fine-tuning with Tiny Temporal Refiner
+
+FUGR-C test reference:
+{'temporal_weight': -1.0, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686925910413266, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.0, 'delta_ssim_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best test PSNR row:
+{'temporal_weight': 7.0, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.588462915006136, 'ssim': 0.828366294503212, 'sharpness': 0.0010997662786394358, 'tde': 0.030683507956564427, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.015394602216133535, 'delta_ssim_vs_fugr': 0.0007286568482717248, 'delta_tde_vs_fugr': -3.417953848838806e-06}
+
+Best test TDE row:
+{'temporal_weight': 7.0, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.588462915006136, 'ssim': 0.828366294503212, 'sharpness': 0.0010997662786394358, 'tde': 0.030683507956564427, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.015394602216133535, 'delta_ssim_vs_fugr': 0.0007286568482717248, 'delta_tde_vs_fugr': -3.417953848838806e-06}
+
+Interpretation:
+A11 moves beyond fixed post-hoc rules by training a lightweight temporal refiner. If the trained refiner improves test PSNR or TDE, it can be reported as evidence that train-time temporal learning is more promising than rule-based post-processing. If it overfits calibration and fails on test, it reinforces the boundary-analysis conclusion.
+
+Saved: /home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/DirectionA/A11_seed_stability_tw7/seed_3

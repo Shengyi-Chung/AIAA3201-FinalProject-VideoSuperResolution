@@ -1,0 +1,27 @@
+Direction A10: Calibrated Residual Ensemble Exploration
+
+FUGR-C test reference:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Learned residual basis weights:
+{'candidate': 'Lambda-0.85', 'weight': 0.14347118266121067}
+{'candidate': 'Lambda-0.95', 'weight': 0.047993343670157534}
+{'candidate': 'Lambda-1.05', 'weight': -0.02975117619924832}
+{'candidate': 'Lambda-1.20', 'weight': -0.11839085325748387}
+{'candidate': 'ResidualAtten-t0.020-g0.95', 'weight': 0.13450266964974422}
+{'candidate': 'ResidualAtten-t0.010-g0.95', 'weight': 0.16749286427815205}
+{'candidate': 'ResidualMedian-b0.25', 'weight': -1.0837615738386541}
+{'candidate': 'ResidualClip-c1.20', 'weight': 0.19201482902491723}
+
+Best calibration-selected scale:
+{'policy': 'calib-scale0.10', 'num_sequences': 5, 'num_frames': 20, 'psnr': 28.422202178168355, 'ssim': 0.8009421348571777, 'sharpness': 0.001519103834289126, 'tde': 0.03663629405200482, 'delta_psnr_vs_fugr': 3.8289322716877905e-06, 'delta_tde_vs_fugr': 3.1925737858234937e-07}
+selected scale: 0.10
+
+Best deployable policy on test:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best test-oracle scale within learned correction family:
+{'policy': 'test-scale0.00', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Interpretation:
+A10 tests a stronger supervised-calibration variant: instead of selecting one candidate, it learns a global residual correction from multiple temporal candidates on calibration frames. If the calibration-selected or even test-oracle correction scale fails to materially beat FUGR-C, then the remaining post-hoc temporal/refinement headroom is too small even for a calibrated linear ensemble.

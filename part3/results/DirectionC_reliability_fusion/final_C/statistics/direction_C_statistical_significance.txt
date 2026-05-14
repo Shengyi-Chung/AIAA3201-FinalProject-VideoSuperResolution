@@ -1,0 +1,43 @@
+Direction C statistical significance analysis
+Comparison: FUGR-full-no-temporal minus BasicVSR, full validation allframes.
+
+PSNR (larger_is_better):
+  n = 30
+  mean delta = 0.0114092482 dB
+  std delta = 0.0082943693
+  median delta = 0.0093800906
+  min / max delta = 0.0012500394 / 0.0415872408
+  95% CI for mean = [0.0084411462, 0.0143773501]
+  improved sequences = 30 / 30
+  two-sided sign-test p-value = 1.862645149e-09
+
+SSIM (larger_is_better):
+  n = 30
+  mean delta = 0.0001510693 
+  std delta = 0.0001782345
+  median delta = 0.0001675909
+  min / max delta = -0.0003057367 / 0.0004460436
+  95% CI for mean = [0.0000872889, 0.0002148497]
+  improved sequences = 23 / 30
+  two-sided sign-test p-value = 0.00522287935
+
+TDE (smaller_is_better):
+  n = 30
+  mean delta = -0.0000439656 
+  std delta = 0.0000162569
+  median delta = -0.0000438392
+  min / max delta = -0.0000739060 / -0.0000120774
+  95% CI for mean = [-0.0000497830, -0.0000381482]
+  improved sequences = 30 / 30
+  two-sided sign-test p-value = 1.862645149e-09
+
+Sharpness (larger_is_better):
+  n = 30
+  mean delta = 0.0000067272 
+  std delta = 0.0000107883
+  median delta = 0.0000067704
+  min / max delta = -0.0000225306 / 0.0000259094
+  95% CI for mean = [0.0000028666, 0.0000105877]
+  improved sequences = 21 / 30
+  two-sided sign-test p-value = 0.04277394526
+

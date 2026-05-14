@@ -1,0 +1,19 @@
+Direction A7: Diagnostic / Oracle / Motion-stratified Analysis
+
+FUGR-C reference:
+{'method': 'FUGR-C', 'num_sequences': 10, 'num_frames': 40, 'motion': 0.1816227249801159, 'psnr': 29.49763333101304, 'tde': 0.0336614509113133, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best non-FUGR candidate by TDE:
+{'method': 'ResidualAtten-t0.020-g0.95', 'num_sequences': 10, 'num_frames': 40, 'motion': 0.1816227249801159, 'psnr': 29.49761385075369, 'tde': 0.033661726489663125, 'delta_psnr_vs_fugr': -1.9480259350501683e-05, 'delta_tde_vs_fugr': 2.755783498273323e-07}
+
+Oracle summary:
+{'method': 'PerFrameOracle', 'num_sequences': 10, 'num_frames': 40, 'psnr': 29.49856277125533, 'tde': 0.033663728274405, 'delta_psnr_vs_fugr': 0.0009294402422881376, 'delta_tde_vs_fugr': 2.277363091704454e-06}
+{'method': 'PerFrameOracleNonFUGR', 'num_sequences': 10, 'num_frames': 40, 'psnr': 29.498561559703212, 'tde': 0.03366373674944043, 'delta_psnr_vs_fugr': 0.0009282286901708403, 'delta_tde_vs_fugr': 2.2858381271348427e-06}
+
+Per-frame oracle headroom:
+frames with any candidate better than FUGR-C: 38/40
+frames with non-FUGR candidate better than FUGR-C: 38/40
+frames with non-FUGR gain > 0.01 dB: 0/40
+
+Interpretation:
+A7 checks whether Direction A failed because of missing hidden headroom. If oracle gains are tiny and proxy correlations are weak, then simple adaptive temporal selection is unlikely to outperform FUGR-C reliably.

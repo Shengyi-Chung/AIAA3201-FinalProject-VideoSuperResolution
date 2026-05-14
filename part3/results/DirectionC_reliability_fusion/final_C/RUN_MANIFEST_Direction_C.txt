@@ -1,0 +1,54 @@
+Direction C final reproducibility manifest
+
+Environment:
+conda activate /home/schung760/my_storage2_1T/envs/aiaa3201-sr
+cd /home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part3
+export CUDA_VISIBLE_DEVICES=1
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
+Final selected method:
+FUGR-full-no-temporal
+
+Final selected configuration:
+max_alpha = 0.25
+detail_strength = 1.2
+hp_sigma = 1.6
+tau_dis = 0.08
+tau_temp = 0.04
+
+Main experiments:
+1. Full-val allframes evaluation:
+   output: fullval_allframes_gpu1/
+
+2. Center7 parameter grid:
+   output: fullval_center7_grid_summary.csv
+
+3. Allframes top-config confirmation:
+   output: fullval_allframes_a030_s10_h16_gpu1/
+
+4. Per-sequence gain analysis:
+   output: final_C/fullval_sequence_delta_analysis.csv
+
+5. Motion group analysis:
+   output: final_C/fullval_motion_group_metrics.csv
+
+6. Mask component ablation:
+   output: final_C/mask_ablation_summary.csv
+   output: final_C/mask_ablation_motion_groups.csv
+
+7. Qualitative panels:
+   output: final_C/qualitative_panels/
+
+8. Runtime overhead:
+   output: final_C/fugr_runtime_benchmark.csv
+
+9. Statistical significance:
+   output: final_C/statistics/direction_C_statistical_significance.txt
+   output: final_C/statistics/direction_C_delta_summary.csv
+
+10. Final figures:
+   output: final_C/figures/
+
+Key conclusion:
+FUGR-full-no-temporal improves PSNR, SSIM, sharpness, and TDE over BasicVSR on the full validation set.
+Per-sequence analysis shows PSNR improvement on 30/30 sequences and TDE improvement on 30/30 sequences.

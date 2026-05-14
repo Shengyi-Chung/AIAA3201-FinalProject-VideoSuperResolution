@@ -1,0 +1,89 @@
+Device: cuda NVIDIA RTX A6000
+Loaded sequences: ['000', '003', '006', '010', '011', '018', '020', '026', '028', '029']
+
+===== Training temporal_weight=0.1500 =====
+[tw=0.1500] step 1/1500 loss=0.040736 rec=0.033104 temp=0.050880 reg=0.000000
+[tw=0.1500] step 100/1500 loss=0.026080 rec=0.021008 temp=0.033761 reg=0.000157
+[tw=0.1500] step 200/1500 loss=0.041732 rec=0.034125 temp=0.050693 reg=0.000076
+[tw=0.1500] step 300/1500 loss=0.026099 rec=0.021176 temp=0.032758 reg=0.000183
+[tw=0.1500] step 400/1500 loss=0.034962 rec=0.028443 temp=0.043384 reg=0.000231
+[tw=0.1500] step 500/1500 loss=0.037977 rec=0.030998 temp=0.046474 reg=0.000149
+[tw=0.1500] step 600/1500 loss=0.030633 rec=0.024898 temp=0.038185 reg=0.000144
+[tw=0.1500] step 700/1500 loss=0.024962 rec=0.020170 temp=0.031849 reg=0.000296
+[tw=0.1500] step 800/1500 loss=0.039823 rec=0.032367 temp=0.049605 reg=0.000313
+[tw=0.1500] step 900/1500 loss=0.025762 rec=0.020959 temp=0.031922 reg=0.000286
+[tw=0.1500] step 1000/1500 loss=0.045359 rec=0.037072 temp=0.055164 reg=0.000236
+[tw=0.1500] step 1100/1500 loss=0.033634 rec=0.027246 temp=0.042480 reg=0.000318
+[tw=0.1500] step 1200/1500 loss=0.045750 rec=0.036954 temp=0.058530 reg=0.000332
+[tw=0.1500] step 1300/1500 loss=0.031359 rec=0.025601 temp=0.038297 reg=0.000278
+[tw=0.1500] step 1400/1500 loss=0.037657 rec=0.030752 temp=0.045864 reg=0.000519
+[tw=0.1500] step 1500/1500 loss=0.024941 rec=0.020125 temp=0.031950 reg=0.000473
+
+===== Training temporal_weight=0.2000 =====
+[tw=0.2000] step 1/1500 loss=0.043280 rec=0.033104 temp=0.050880 reg=0.000000
+[tw=0.2000] step 100/1500 loss=0.027768 rec=0.021008 temp=0.033761 reg=0.000158
+[tw=0.2000] step 200/1500 loss=0.044267 rec=0.034125 temp=0.050693 reg=0.000077
+[tw=0.2000] step 300/1500 loss=0.027736 rec=0.021176 temp=0.032758 reg=0.000181
+[tw=0.2000] step 400/1500 loss=0.037131 rec=0.028441 temp=0.043383 reg=0.000263
+[tw=0.2000] step 500/1500 loss=0.040300 rec=0.030998 temp=0.046473 reg=0.000157
+[tw=0.2000] step 600/1500 loss=0.032541 rec=0.024897 temp=0.038182 reg=0.000161
+[tw=0.2000] step 700/1500 loss=0.026551 rec=0.020168 temp=0.031843 reg=0.000303
+[tw=0.2000] step 800/1500 loss=0.042300 rec=0.032361 temp=0.049600 reg=0.000367
+[tw=0.2000] step 900/1500 loss=0.027353 rec=0.020954 temp=0.031916 reg=0.000316
+[tw=0.2000] step 1000/1500 loss=0.048115 rec=0.037070 temp=0.055161 reg=0.000266
+[tw=0.2000] step 1100/1500 loss=0.035756 rec=0.027244 temp=0.042476 reg=0.000331
+[tw=0.2000] step 1200/1500 loss=0.048678 rec=0.036954 temp=0.058532 reg=0.000367
+[tw=0.2000] step 1300/1500 loss=0.033274 rec=0.025600 temp=0.038295 reg=0.000298
+[tw=0.2000] step 1400/1500 loss=0.039947 rec=0.030748 temp=0.045859 reg=0.000545
+[tw=0.2000] step 1500/1500 loss=0.026537 rec=0.020123 temp=0.031947 reg=0.000482
+
+===== Training temporal_weight=0.3000 =====
+[tw=0.3000] step 1/1500 loss=0.048368 rec=0.033104 temp=0.050880 reg=0.000000
+[tw=0.3000] step 100/1500 loss=0.031144 rec=0.021008 temp=0.033761 reg=0.000160
+[tw=0.3000] step 200/1500 loss=0.049336 rec=0.034124 temp=0.050692 reg=0.000085
+[tw=0.3000] step 300/1500 loss=0.031012 rec=0.021176 temp=0.032757 reg=0.000176
+[tw=0.3000] step 400/1500 loss=0.041467 rec=0.028438 temp=0.043380 reg=0.000296
+[tw=0.3000] step 500/1500 loss=0.044946 rec=0.030995 temp=0.046470 reg=0.000184
+[tw=0.3000] step 600/1500 loss=0.036356 rec=0.024893 temp=0.038170 reg=0.000243
+[tw=0.3000] step 700/1500 loss=0.029728 rec=0.020163 temp=0.031827 reg=0.000342
+[tw=0.3000] step 800/1500 loss=0.047254 rec=0.032354 temp=0.049596 reg=0.000415
+[tw=0.3000] step 900/1500 loss=0.030535 rec=0.020945 temp=0.031905 reg=0.000372
+[tw=0.3000] step 1000/1500 loss=0.053629 rec=0.037066 temp=0.055154 reg=0.000344
+[tw=0.3000] step 1100/1500 loss=0.040001 rec=0.027241 temp=0.042473 reg=0.000366
+[tw=0.3000] step 1200/1500 loss=0.054536 rec=0.036954 temp=0.058536 reg=0.000420
+[tw=0.3000] step 1300/1500 loss=0.037105 rec=0.025601 temp=0.038294 reg=0.000300
+[tw=0.3000] step 1400/1500 loss=0.044534 rec=0.030750 temp=0.045858 reg=0.000538
+[tw=0.3000] step 1500/1500 loss=0.029731 rec=0.020122 temp=0.031944 reg=0.000510
+
+===== Training temporal_weight=0.5000 =====
+[tw=0.5000] step 1/1500 loss=0.058544 rec=0.033104 temp=0.050880 reg=0.000000
+[tw=0.5000] step 100/1500 loss=0.037896 rec=0.021007 temp=0.033761 reg=0.000169
+[tw=0.5000] step 200/1500 loss=0.059475 rec=0.034124 temp=0.050692 reg=0.000092
+[tw=0.5000] step 300/1500 loss=0.037563 rec=0.021176 temp=0.032757 reg=0.000186
+[tw=0.5000] step 400/1500 loss=0.050138 rec=0.028433 temp=0.043373 reg=0.000358
+[tw=0.5000] step 500/1500 loss=0.054237 rec=0.030991 temp=0.046463 reg=0.000291
+[tw=0.5000] step 600/1500 loss=0.043987 rec=0.024890 temp=0.038160 reg=0.000336
+[tw=0.5000] step 700/1500 loss=0.036091 rec=0.020161 temp=0.031825 reg=0.000363
+[tw=0.5000] step 800/1500 loss=0.057171 rec=0.032351 temp=0.049592 reg=0.000471
+[tw=0.5000] step 900/1500 loss=0.036908 rec=0.020939 temp=0.031896 reg=0.000407
+[tw=0.5000] step 1000/1500 loss=0.064657 rec=0.037062 temp=0.055149 reg=0.000417
+[tw=0.5000] step 1100/1500 loss=0.048494 rec=0.027239 temp=0.042468 reg=0.000428
+[tw=0.5000] step 1200/1500 loss=0.066243 rec=0.036951 temp=0.058533 reg=0.000526
+[tw=0.5000] step 1300/1500 loss=0.044764 rec=0.025600 temp=0.038291 reg=0.000374
+[tw=0.5000] step 1400/1500 loss=0.053695 rec=0.030737 temp=0.045845 reg=0.000712
+[tw=0.5000] step 1500/1500 loss=0.036119 rec=0.020120 temp=0.031940 reg=0.000563
+Direction A11: Train-time Temporal Fine-tuning with Tiny Temporal Refiner
+
+FUGR-C test reference:
+{'temporal_weight': -1.0, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686925910413266, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.0, 'delta_ssim_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best test PSNR row:
+{'temporal_weight': 0.5, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.58131734700986, 'ssim': 0.8278717517852783, 'sharpness': 0.0010896827821852638, 'tde': 0.03068110117067893, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.008249034219858231, 'delta_ssim_vs_fugr': 0.00023411413033802564, 'delta_tde_vs_fugr': -5.824739734334311e-06}
+
+Best test TDE row:
+{'temporal_weight': 0.5, 'split': 'test', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.58131734700986, 'ssim': 0.8278717517852783, 'sharpness': 0.0010896827821852638, 'tde': 0.03068110117067893, 'fugr_psnr': 30.573068312790003, 'fugr_ssim': 0.8276376376549403, 'fugr_sharpness': 0.0010731067653978244, 'fugr_tde': 0.030686925910413266, 'delta_psnr_vs_fugr': 0.008249034219858231, 'delta_ssim_vs_fugr': 0.00023411413033802564, 'delta_tde_vs_fugr': -5.824739734334311e-06}
+
+Interpretation:
+A11 moves beyond fixed post-hoc rules by training a lightweight temporal refiner. If the trained refiner improves test PSNR or TDE, it can be reported as evidence that train-time temporal learning is more promising than rule-based post-processing. If it overfits calibration and fails on test, it reinforces the boundary-analysis conclusion.
+
+Saved: /home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/DirectionA/A11_temporal_refiner_fine

@@ -1,0 +1,21 @@
+Direction B15: Calibration/Test Frequency Fusion
+
+Calibration sequences: ['000', '003', '006', '010', '011']
+Test sequences: ['018', '020', '026', '028', '029']
+
+Selected config on calibration split:
+{'split': 'calibration', 'method': 'RGB-HF-b0.60-s0.4', 'num_sequences': 5, 'num_frames': 20, 'psnr': 28.42709093013072, 'ssim': 0.800963314374288, 'sharpness': 0.0013918298674980179, 'tde': 0.036647682264447215, 'beta': 0.6, 'sigma': 0.4, 'delta_psnr_vs_fugr': 0.004892580894637177, 'delta_ssim_vs_fugr': 2.06778446835143e-05, 'delta_tde_vs_fugr': 1.170746982098042e-05}
+
+Selected config evaluated on held-out test split:
+{'split': 'test', 'method': 'RGB-HF-b0.60-s0.4', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.58275022492244, 'ssim': 0.8276850859324136, 'sharpness': 0.000997553364140913, 'tde': 0.030688067711889744, 'beta': 0.6, 'sigma': 0.4, 'delta_psnr_vs_fugr': 0.009681912132435855, 'delta_ssim_vs_fugr': 4.7448277473383094e-05, 'delta_tde_vs_fugr': 1.140683889389732e-06}
+
+Key rows:
+{'split': 'calibration', 'method': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 28.422198349236083, 'ssim': 0.8009426365296045, 'sharpness': 0.0015015779616078361, 'tde': 0.036635974794626235, 'delta_psnr_vs_fugr': 0.0, 'delta_ssim_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+{'split': 'calibration', 'method': 'ControlNet-FUGR', 'num_sequences': 5, 'num_frames': 20, 'psnr': 21.83774084173134, 'ssim': 0.5911104972163836, 'sharpness': 0.001017667370615527, 'tde': 0.08147010579705238, 'delta_psnr_vs_fugr': -6.5844575075047445, 'delta_ssim_vs_fugr': -0.20983213931322087, 'delta_tde_vs_fugr': 0.04483413100242615}
+{'split': 'calibration', 'method': 'BasicVSR', 'num_sequences': 5, 'num_frames': 20, 'psnr': 28.408100670666915, 'ssim': 0.8007173160711926, 'sharpness': 0.0015008713176939636, 'tde': 0.03669280223548412, 'delta_psnr_vs_fugr': -0.014097678569168437, 'delta_ssim_vs_fugr': -0.00022532045841194837, 'delta_tde_vs_fugr': 5.682744085788727e-05}
+{'split': 'test', 'method': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_ssim_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+{'split': 'test', 'method': 'ControlNet-FUGR', 'num_sequences': 5, 'num_frames': 20, 'psnr': 23.064964685135806, 'ssim': 0.6291647583246232, 'sharpness': 0.0007821145132766105, 'tde': 0.07184006869792939, 'delta_psnr_vs_fugr': -7.508103627654197, 'delta_ssim_vs_fugr': -0.1984728793303171, 'delta_tde_vs_fugr': 0.04115314166992903}
+{'split': 'test', 'method': 'BasicVSR', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.554015592610348, 'ssim': 0.8274916956822078, 'sharpness': 0.0010666362271877007, 'tde': 0.030733073689043523, 'delta_psnr_vs_fugr': -0.01905272017965487, 'delta_ssim_vs_fugr': -0.00014594197273243292, 'delta_tde_vs_fugr': 4.61466610431685e-05}
+{'split': 'calibration', 'method': 'RGB-HF-b0.60-s0.4', 'num_sequences': 5, 'num_frames': 20, 'psnr': 28.42709093013072, 'ssim': 0.800963314374288, 'sharpness': 0.0013918298674980179, 'tde': 0.036647682264447215, 'beta': 0.6, 'sigma': 0.4, 'delta_psnr_vs_fugr': 0.004892580894637177, 'delta_ssim_vs_fugr': 2.06778446835143e-05, 'delta_tde_vs_fugr': 1.170746982098042e-05}
+{'split': 'test', 'method': 'RGB-HF-b0.60-s0.4', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.58275022492244, 'ssim': 0.8276850859324136, 'sharpness': 0.000997553364140913, 'tde': 0.030688067711889744, 'beta': 0.6, 'sigma': 0.4, 'delta_psnr_vs_fugr': 0.009681912132435855, 'delta_ssim_vs_fugr': 4.7448277473383094e-05, 'delta_tde_vs_fugr': 1.140683889389732e-06}
+

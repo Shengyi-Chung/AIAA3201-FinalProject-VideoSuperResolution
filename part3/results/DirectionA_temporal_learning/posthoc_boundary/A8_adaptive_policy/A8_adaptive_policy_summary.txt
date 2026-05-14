@@ -1,0 +1,16 @@
+Direction A8: No-reference Adaptive Policy Exploration
+
+FUGR-C test reference:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Best deployable policy on test:
+{'policy': 'FUGR-C', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.573068312790003, 'ssim': 0.8276376376549403, 'sharpness': 0.0010731067653978244, 'tde': 0.030686927028000355, 'delta_psnr_vs_fugr': 0.0, 'delta_tde_vs_fugr': 0.0}
+
+Oracle reference on test:
+{'policy': 'TestPerFrameOracle', 'num_sequences': 5, 'num_frames': 20, 'psnr': 30.5743039230063, 'ssim': 0.8276624709367753, 'sharpness': 0.0010746269021183253, 'tde': 0.03068927153944969, 'delta_psnr_vs_fugr': 0.0012356102162982552, 'delta_tde_vs_fugr': 2.344511449335618e-06}
+
+Selected global non-FUGR candidate on calibration:
+ResidualAtten-t0.020-g0.95
+
+Interpretation:
+A8 tests whether no-reference sequence-level features can select a better temporal refinement candidate. If deployable policies do not beat FUGR-C while oracle references remain tiny, this suggests that the remaining A-direction headroom is too small and too unstable to be exploited reliably without ground truth.

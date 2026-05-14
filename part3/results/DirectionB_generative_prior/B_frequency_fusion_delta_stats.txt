@@ -1,0 +1,11 @@
+Frequency Fusion vs FUGR-C: per-frame PSNR delta analysis
+num_frames: 40
+mean_delta: 0.00301609
+median_delta: 0.00067405
+std_delta: 0.01103582
+min_delta: -0.02144313
+max_delta: 0.03087820
+positive_frames: 22/40
+negative_frames: 18/40
+zero_frames: 0/40
+bootstrap_95ci_mean_delta: [-0.00027045, 0.00652375]

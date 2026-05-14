@@ -1,0 +1,13 @@
+SpyNet weights loaded and keys mapped from /home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part2/weights/spynet.pth
+SpyNet weights loaded and keys mapped from /home/schung760/my_storage_1T/AIAA3201-FinalProject-VideoSuperResolution/Part2/weights/spynet.pth
+Benchmark 000 100 frames
+Benchmark 001 100 frames
+Benchmark 002 100 frames
+Benchmark 003 100 frames
+Benchmark 004 100 frames
+Saved: /home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/runtime/fugr_runtime_benchmark.csv
+Average Basic sec/frame: 0.255276
+Average GAN sec/frame: 0.334967
+Average FUGR post sec/frame: 0.189147
+Overhead vs Basic: 74.09%
+Overhead vs two-model inference: 32.05%
