@@ -1,0 +1,66 @@
+# Model weights and checkpoints
+*.pth
+*.pt
+weights/
+checkpoints/
+
+# Dataset and results
+dataset/
+datasets/
+train/
+val/
+vsrgan_result/
+basicvsr_result/
+evalresult/
+
+# Temporary files
+*.pyc
+*.pyo
+__pycache__/
+*.cache
+*.tmp
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TensorBoard logs
+logs/
+runs/
+
+# Output images and videos
+*.mp4
+*.avi
+*.mov
+visual/
+
+# Python virtual environments
+venv/
+env/
+ENV/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# CSV results
+*.csv
+
+# System
+*.exe
+*.dll
+*.so
+.env
+
+# Miscellaneous
+test_output/
+temp/
+*.zip
+*.tar.gz
