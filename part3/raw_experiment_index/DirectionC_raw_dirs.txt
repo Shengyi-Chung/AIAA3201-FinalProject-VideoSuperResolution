@@ -1,8 +1,0 @@
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/DirectionB/frequency_fusion_expanded_st015
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/DirectionB/frequency_fusion_strong_st015
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/DirectionB/frequency_fusion_strong_st025
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/Part3_submission_clean/results/DirectionC_reliability_fusion
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/final_C
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/fugr_final_best
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/fugr_sweep
-/home/schung760/my_storage2_1T/AIAA3201_Part3_outputs/fugr_v2
