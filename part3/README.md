@@ -196,3 +196,33 @@ figures/
 ## Notes
 
 This repository is intended as the clean Part 3 code and selected result repository for review and reproducibility.
+
+---
+
+## Updated Main Scripts
+
+The current Part 3 code is organized under `part3/scripts/` by direction:
+
+```bash
+cd part3/scripts
+
+# Direction C: Reliability-guided fusion
+python direction_c_main_fugr/part3_fugr_vsr.py
+python direction_c_main_fugr/part3_fugr_vsr_final_noT.py
+python direction_c_main_fugr/eval_fugr_fullval.py
+python direction_c_main_fugr/eval_fugr_mask_ablation.py
+python direction_c_main_fugr/make_fugr_qual_panels.py
+
+# Direction B: Generative prior and constrained frequency fusion
+python direction_b_generative_prior/directionB_frequency_fusion.py
+python direction_b_generative_prior/directionB_calib_test_frequency.py
+
+# Direction A: Temporal refinement
+python direction_a_temporal_refinement/directionA11_train_temporal_refiner.py
+```
+
+Supplementary LPIPS/FID/tLPIPS-style metrics for the report are stored under:
+
+```text
+part3/report_results/extra_metrics/lpips_fid_tlpips_selected8.csv
+```

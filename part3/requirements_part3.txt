@@ -11,3 +11,6 @@ diffusers
 transformers
 accelerate
 safetensors
+lpips
+torchmetrics
+torch-fidelity

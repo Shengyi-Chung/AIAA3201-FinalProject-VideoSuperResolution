@@ -1,0 +1,14 @@
+Part3: Frequency-aware Uncertainty-Guided Residual Refinement (FUGR-VSR)
+Matched frames: 100
+max_alpha: 0.25
+tau_dis: 0.08
+tau_temp: 0.04
+hp_sigma: 1.6
+detail_strength: 1.2
+
+method,psnr,ssim,laplacian_sharpness,tde
+BasicVSR,28.2954,0.8196,0.00147379,0.03252833
+VSRGAN,25.4914,0.7511,0.00458239,0.04173895
+RGB-Hybrid,28.2973,0.8196,0.00147346,0.03252721
+FUGR-no-temporal,28.3030,0.8197,0.00149128,0.03250856
+FUGR-temporal,28.3005,0.8197,0.00148874,0.03251698

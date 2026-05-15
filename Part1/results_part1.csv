@@ -1,0 +1,4 @@
+method,psnr_y,ssim_y,fps
+bicubic,24.09,0.692,9.22
+lanczos,23.82,0.676,8.92
+srcnn,25.81,0.723,2.28

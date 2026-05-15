@@ -4,3 +4,36 @@ datasets/
 videos.zip
 __pycache__/
 .venv/
+
+# Generated VSR outputs
+Part2/basicvsr_result/
+Part2/vsrgan_result/
+part3/results/final_fugr_frames/
+part3/results/final_fugr_metrics/
+part3/figures/final_fugr_panels/
+videos_to_submit/
+videos.zip
+*.mp4
+
+# Large/generated Part 1 report assets
+Part1/checkpoints_report/
+Part1/outputs_srcnn_report/
+Part1/temporal_preview_report/
+
+# Temporary report-generation files
+Part1/report_assets/
+Part1/report_summary.md
+Part1/results_part1_report.csv
+Part1/temporal_metrics_report.csv
+Part1/train_report.log
+Part1/export_sequence_video.py
+Part1/make_report_assets.py
+Part1/make_single_compare.py
+Part1/make_zoom_residual_compare.py
+
+# Duplicate/generated folders
+Part3/
+make_part3_actual_output_videos.py
+make_part3_demo_videos.py
+make_part3_full100_ABC_videos.py
+make_part3_three_direction_videos.py

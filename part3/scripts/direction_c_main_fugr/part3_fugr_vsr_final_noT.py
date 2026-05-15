@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
 """
-Part3 v2: Frequency-aware Uncertainty-Guided Residual Refinement (FUGR-VSR)
+Part3: Frequency-aware Uncertainty-Guided Residual Refinement (FUGR-VSR)
 
-A stronger Part3 than simple RGB blending:
-- BasicVSR keeps low-frequency structure/color.
-- VSRGAN contributes only high-frequency detail residuals.
-- A pixel-wise uncertainty mask suppresses GAN residuals in risky regions.
-- Built-in ablation: BasicVSR, VSRGAN, RGB-Hybrid, FUGR-no-temporal, FUGR-temporal.
+This script fuses existing BasicVSR and VSRGAN output PNG frames.
+It saves FUGR-no-temporal frames, per-frame metrics, summary text, and qualitative panels.
 """
 
 import argparse
 import csv
 from pathlib import Path
+
 import cv2
 import numpy as np
 
@@ -132,11 +130,20 @@ def panel(path, imgs, titles):
     for im, title in zip(resized, titles):
         w = im.shape[1]
         canvas[title_h:, x:x+w] = np.clip(im * 255, 0, 255).round().astype(np.uint8)
-        cv2.putText(canvas, title, (x + 8, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.62, (0,0,0), 2, cv2.LINE_AA)
+        cv2.putText(canvas, title, (x + 8, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.62, (0, 0, 0), 2, cv2.LINE_AA)
         x += w
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     cv2.imwrite(str(path), cv2.cvtColor(canvas, cv2.COLOR_RGB2BGR))
+
+
+def temporal_difference_error(frames, gt_frames):
+    if len(frames) < 2:
+        return float("nan")
+    vals = []
+    for i in range(1, len(frames)):
+        vals.append(float(np.mean(np.abs((frames[i] - frames[i-1]) - (gt_frames[i] - gt_frames[i-1])))))
+    return float(np.mean(vals))
 
 
 def main():
@@ -148,11 +155,11 @@ def main():
     ap.add_argument("--fig_dir", required=True)
     ap.add_argument("--csv_path", required=True)
     ap.add_argument("--summary_path", required=True)
-    ap.add_argument("--max_alpha", type=float, default=0.20)
+    ap.add_argument("--max_alpha", type=float, default=0.25)
     ap.add_argument("--tau_dis", type=float, default=0.08)
     ap.add_argument("--tau_temp", type=float, default=0.04)
-    ap.add_argument("--hp_sigma", type=float, default=1.2)
-    ap.add_argument("--detail_strength", type=float, default=1.0)
+    ap.add_argument("--hp_sigma", type=float, default=1.6)
+    ap.add_argument("--detail_strength", type=float, default=1.2)
     ap.add_argument("--panel_every", type=int, default=25)
     args = ap.parse_args()
 
@@ -166,7 +173,7 @@ def main():
 
     names = sorted([p.name for p in gt_dir.glob("*.png") if (basic_dir / p.name).exists() and (gan_dir / p.name).exists()])
     if not names:
-        raise RuntimeError("No matched frames found.")
+        raise RuntimeError("No matched frames found. Check basic_dir, gan_dir, and gt_dir.")
     print("Matched frames:", len(names))
 
     basics, gans, residuals = {}, {}, {}
@@ -177,13 +184,15 @@ def main():
 
     methods = ["BasicVSR", "VSRGAN", "RGB-Hybrid", "FUGR-no-temporal", "FUGR-temporal"]
     vals = {m: [] for m in methods}
+    outputs_by_method = {m: [] for m in methods}
+    gt_list = []
     rows = []
 
     for i, n in enumerate(names):
         b, g, gt = basics[n], gans[n], read_rgb(gt_dir / n)
-        rp = residuals[names[i-1]] if i > 0 else None
+        rp = residuals[names[i - 1]] if i > 0 else None
         rc = residuals[n]
-        rn = residuals[names[i+1]] if i + 1 < len(names) else None
+        rn = residuals[names[i + 1]] if i + 1 < len(names) else None
 
         a0, tex, dis, tr0 = masks(b, g, rp, rc, rn, args.max_alpha, args.tau_dis, args.tau_temp, False)
         at, tex, dis, tr = masks(b, g, rp, rc, rn, args.max_alpha, args.tau_dis, args.tau_temp, True)
@@ -195,21 +204,41 @@ def main():
             "FUGR-no-temporal": fugr(b, g, a0, args.hp_sigma, args.detail_strength),
             "FUGR-temporal": fugr(b, g, at, args.hp_sigma, args.detail_strength),
         }
-        save_rgb(out_dir / n, outs["FUGR-no-temporal"])
 
-        row = {"frame": n, "alpha_mean": float(at.mean()), "alpha_max": float(at.max()),
-               "disagreement_mean": float(dis.mean()), "temporal_risk_mean": float(tr.mean())}
+        save_rgb(out_dir / n, outs["FUGR-no-temporal"])
+        gt_list.append(gt)
+
+        row = {
+            "frame": n,
+            "alpha_noT_mean": float(a0.mean()),
+            "alpha_T_mean": float(at.mean()),
+            "alpha_T_max": float(at.max()),
+            "disagreement_mean": float(dis.mean()),
+            "temporal_risk_mean": float(tr.mean()),
+        }
         for m, im in outs.items():
             p, s, sh = psnr(im, gt), ssim_rgb(im, gt), sharpness(im)
             vals[m].append((p, s, sh))
+            outputs_by_method[m].append(im)
             row[f"{m}_psnr"], row[f"{m}_ssim"], row[f"{m}_sharp"] = p, s, sh
         rows.append(row)
 
-        if i % args.panel_every == 0:
-            panel(fig_dir / f"fugr_panel_{Path(n).stem}.png",
-                  [b, g, outs["RGB-Hybrid"], outs["FUGR-no-temporal"], outs["FUGR-temporal"],
-                   colorize(at), colorize(dis), colorize(tr), gt],
-                  ["BasicVSR", "VSRGAN", "RGB", "FUGR-noT", "FUGR-T", "Alpha", "Disagree", "TempRisk", "GT"])
+        if args.panel_every > 0 and i % args.panel_every == 0:
+            panel(
+                fig_dir / f"fugr_panel_{Path(n).stem}.png",
+                [
+                    b,
+                    g,
+                    outs["RGB-Hybrid"],
+                    outs["FUGR-no-temporal"],
+                    outs["FUGR-temporal"],
+                    colorize(at),
+                    colorize(dis),
+                    colorize(tr),
+                    gt,
+                ],
+                ["BasicVSR", "VSRGAN", "RGB", "FUGR-noT", "FUGR-T", "Alpha", "Disagree", "TempRisk", "GT"],
+            )
 
     with csv_path.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
@@ -217,7 +246,7 @@ def main():
         writer.writerows(rows)
 
     lines = [
-        "Part3 v2: Frequency-aware Uncertainty-Guided Residual Refinement (FUGR-VSR)",
+        "Part3: Frequency-aware Uncertainty-Guided Residual Refinement (FUGR-VSR)",
         f"Matched frames: {len(names)}",
         f"max_alpha: {args.max_alpha}",
         f"tau_dis: {args.tau_dis}",
@@ -225,11 +254,12 @@ def main():
         f"hp_sigma: {args.hp_sigma}",
         f"detail_strength: {args.detail_strength}",
         "",
-        "method,psnr,ssim,laplacian_sharpness"
+        "method,psnr,ssim,laplacian_sharpness,tde",
     ]
     for m in methods:
         arr = np.array(vals[m], dtype=np.float64)
-        lines.append(f"{m},{arr[:,0].mean():.4f},{arr[:,1].mean():.4f},{arr[:,2].mean():.8f}")
+        tde = temporal_difference_error(outputs_by_method[m], gt_list)
+        lines.append(f"{m},{arr[:,0].mean():.4f},{arr[:,1].mean():.4f},{arr[:,2].mean():.8f},{tde:.8f}")
 
     summary_path.write_text("\n".join(lines) + "\n")
     print(summary_path.read_text())
