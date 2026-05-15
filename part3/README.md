@@ -12,7 +12,6 @@ Part3_github_clean/
 ├── figures/               # Selected final figures and qualitative panels
 ├── results/               # Lightweight CSV/TXT result summaries
 ├── logs_selected/         # Selected important run logs
-├── raw_experiment_index/  # Index of raw experiment folders
 ├── requirements_part3.txt
 └── README.md
 ```
